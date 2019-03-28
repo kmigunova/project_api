@@ -68,6 +68,8 @@ class MapParams(object):
             self.type = 'sat'  # спутник
         elif event.key == 51:
             self.type = 'sat,skl'  # гибрид
+        elif event.key == 127:
+            self.search_result = None  # удаленее точки
 
         if self.lon > 180:
             self.lon -= 360
