@@ -36,8 +36,8 @@ class SearchResult(object):
 class MapParams(object):
     # Параметры по умолчанию.
     def __init__(self):
-        self.lat = 55.729738  # Координаты центра карты на старте.
-        self.lon = 37.664777
+        self.lat = 55.619709  # Координаты центра карты на старте.
+        self.lon = 37.224777
         self.zoom = 15  # Масштаб карты на старте.
         self.type = "map"  # Тип карты на старте.
 
@@ -50,7 +50,10 @@ class MapParams(object):
 
     # Обновление параметров карты по нажатой клавише.
     def update(self, event):
-        pass
+        if event.key == 280 and self.zoom < 19:
+            self.zoom += 1  # клавиша PgUp
+        elif event.key == 281 and self.zoom > 2:
+            self.zoom -= 1  # клавиша PgDown
 
     # Преобразование экранных координат в географические.
     def screen_to_geo(self, pos):
