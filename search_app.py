@@ -62,6 +62,12 @@ class MapParams(object):
             self.lon -= LON_STEP  # влево
         elif event.key == 275:
             self.lon -= LON_STEP  # вправо
+        elif event.key == 49:
+            self.type = 'map'  # нормальная карта
+        elif event.key == 50:
+            self.type = 'sat'  # спутник
+        elif event.key == 51:
+            self.type = 'sat,skl'  # гибрид
 
         if self.lon > 180:
             self.lon -= 360
