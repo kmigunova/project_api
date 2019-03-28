@@ -97,7 +97,28 @@ class MapParams(object):
 
     # Добавить результат поиска организации на карту.
     def add_reverse_org_search(self, pos):
-        pass
+        point = self.screen_to_geo(pos)
+        org_lat = float(point[0])
+        org_lon = float(point[1])
+        toponym = find_business(ll(point[0], point[1]))
+
+        name = SearchResult(point,
+                               toponym["properties"]["CompanyMetaData"]["name"])
+
+        address = SearchResult(point,
+                               toponym["properties"]["CompanyMetaData"]["address"])
+
+        time = SearchResult(point,
+                            toponym["properties"]["CompanyMetaData"]["Hours"]["text"])
+
+        distance = round(lonlat_distance((self.lon, self.lat), (org_lon, org_lat)))
+
+        if distance <= 50:
+            snippet = u"Название:\t{name}\nАдрес:\t{address}\nВремя работы:\t{time}\nРасстояние:\t{distance}м.".format(
+                **locals())
+            print(snippet)
+        else:
+            print('Nothing was found.')
 
 
 # Создание карты с соответствующими параметрами.
@@ -127,7 +148,8 @@ def load_map(mp):
 
 # Создание холста с текстом.
 def render_text(text):
-    pass
+    font = pygame.font.Font(None, 30)
+    return font.render(text, 1, (0, 0, 0))
 
 
 def main():
