@@ -90,7 +90,10 @@ class MapParams(object):
 
     # Добавить результат геопоиска на карту.
     def add_reverse_toponym_search(self, pos):
-        pass
+        point = self.screen_to_geo(pos)
+        toponym = reverse_geocode(ll(point[0], point[1]))
+        self.search_result = SearchResult(point,
+                                          toponym['metaDataProperty']['GeocoderMetaData']['text'] if toponym else None)
 
     # Добавить результат поиска организации на карту.
     def add_reverse_org_search(self, pos):
